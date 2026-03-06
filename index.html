@@ -24,8 +24,41 @@
     <link rel="stylesheet" href="./style/style.css">
 </head>
 
-<body>
-    start project
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+    <div class="card w-full max-w-md bg-white shadow-lg p-8">
+
+        <div class="flex justify-center mb-4">
+            <img src="./assets/github-logo.png" class="w-16">
+        </div>
+
+        <h2 class="text-center text-xl font-semibold">GitHub Issues Tracker</h2>
+        <p class="text-center text-gray-500 text-sm mb-6">Sign in to manage your issues</p>
+
+        <div class="form-control mb-4">
+            <label class="label"><span class="label-text">Username</span></label>
+            <input type="text" placeholder="Enter Username" class="input input-bordered w-full" />
+            <p class="text-[#4a00ff] text-xs mt-1">Default: admin</p>
+        </div>
+
+        <div class="form-control mb-5">
+            <label class="label"><span class="label-text">Password</span></label>
+            <input type="password" placeholder="Enter Password" class="input input-bordered w-full" />
+            <p class="text-[#4a00ff] text-xs mt-1">Default: admin123</p>
+        </div>
+
+        <button class="btn btn-primary border-none">Sign In</button>
+
+        <div class="divider text-sm">OR</div>
+        <div class="p-4 rounded text-center text-sm">
+            <p class="font-semibold mb-2 text-[#9ea8b7]">Demo Credentials:</p>
+            <div class="bg-gray-100 py-6 rounded-md">
+                <p><b>Username:</b> admin</p>
+                <p><b>Password:</b> admin123</p>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>
