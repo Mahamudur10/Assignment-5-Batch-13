@@ -37,17 +37,17 @@
 
         <div class="form-control mb-4">
             <label class="label"><span class="label-text">Username</span></label>
-            <input type="text" placeholder="Enter Username" class="input input-bordered w-full" />
+            <input id="input-user" type="text" placeholder="Enter Username" class="input input-bordered w-full" />
             <p class="text-[#4a00ff] text-xs mt-1">Default: admin</p>
         </div>
 
         <div class="form-control mb-5">
             <label class="label"><span class="label-text">Password</span></label>
-            <input type="password" placeholder="Enter Password" class="input input-bordered w-full" />
+            <input id="input-pass" type="password" placeholder="Enter Password" class="input input-bordered w-full" />
             <p class="text-[#4a00ff] text-xs mt-1">Default: admin123</p>
         </div>
 
-        <button class="btn btn-primary border-none">Sign In</button>
+        <button id="loginBtn" class="btn btn-primary text-white border-none hover:bg-[#3a00cc]">Sign In</button>
 
         <div class="divider text-sm">OR</div>
         <div class="p-4 rounded text-center text-sm">
@@ -59,6 +59,7 @@
         </div>
     </div>
 
+    <script src="./script/login.js"></script>
 </body>
 
 </html>
