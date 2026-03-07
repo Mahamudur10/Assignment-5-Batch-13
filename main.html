@@ -39,6 +39,7 @@
 
     <!-- Main Container -->
     <div class="w-11/12 md:w-10/12 lg:w-8/12 mx-auto mt-8">
+        <!-- Tabs -->
         <div class="bg-white p-4 rounded-lg shadow-sm mb-6">
             <div class="tabs w-fit gap-2">
                 <button class="tab tab-active bg-[#4a00ff] text-white border border-gray-200 rounded-lg">All</button>
@@ -47,10 +48,8 @@
             </div>
         </div>
 
-        <!--  Count div -->
-
-        <div
-            class="bg-white p-6 rounded-lg shadow-sm mb-6 flex flex-col md:flex-row gap-4 justify-between md:items-center">
+        <!-- Count div -->
+        <div class="bg-white p-6 rounded-lg shadow-sm mb-6 flex flex-col md:flex-row gap-4 justify-between md:items-center">
             <div class="flex items-center gap-3">
                 <div class="bg-[#ece4ff] p-2 rounded-full">
                     <img src="./assets/Aperture.png" alt="">
@@ -73,15 +72,40 @@
             </div>
         </div>
 
+        <!-- Loading Spinner -->
         <div id="loading-spinner" class="flex justify-center items-center py-10 hidden">
             <span class="loading loading-dots loading-xl text-[#4a00ff]"></span>
         </div>
+
         <!-- Issues Grid -->
         <div id="issues-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 min-h-[200px]">
-
+            <!-- Issues dynamically added here -->
         </div>
 
     </div>
+
+    <!-- Issue Details Modal -->
+    <dialog id="issue-modal" class="modal">
+        <div class="modal-box max-w-lg">
+            <h3 id="modal-title" class="font-bold text-lg"></h3>
+            <p id="modal-description" class="py-3 text-sm text-gray-600"></p>
+
+            <div class="flex flex-wrap gap-2 mt-2" id="modal-labels">
+                <!-- labels dynamically inserted here -->
+            </div>
+
+            <div class="flex justify-between text-xs text-gray-400 mt-3">
+                <span id="modal-author"></span>
+                <span id="modal-date"></span>
+            </div>
+
+            <div class="modal-action">
+                <form method="dialog">
+                    <button class="btn">Close</button>
+                </form>
+            </div>
+        </div>
+    </dialog>
 
     <script src="./script/main.js"></script>
 </body>
