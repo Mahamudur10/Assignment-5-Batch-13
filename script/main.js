@@ -1,4 +1,16 @@
 let allIssues = [];
+// Spinner control
+const toggleSpinner = (show) => {
+    const spinner = document.getElementById("loading-spinner");
+    if (!spinner) return;
+
+    if (show) {
+        spinner.classList.remove("hidden");
+    } else {
+        spinner.classList.add("hidden");
+    }
+};
+
 // Fetch all issues
 const fetchIssues = async () => {
     try {
@@ -113,9 +125,11 @@ const setActiveTab = (clickedTab) => {
 
 // Load issues initially
 const loadIssues = async () => {
+    toggleSpinner(true);
     allIssues = await fetchIssues();
     displayIssues(allIssues);
     updateCountDiv("all");
+    toggleSpinner(false);
 }
 
 // Tab click events
