@@ -6,21 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Github_Issue_Tracker</title>
 
-    <!-- tailwind + daisyUi -->
+    <!-- TailwindCSS + DaisyUI -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-    <!-- font awesome cdn -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- geist fonts -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
 
-    <!-- link css -->
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="./style/style.css">
 </head>
 
@@ -28,18 +28,22 @@
     <!-- Navbar -->
     <div class="navbar bg-white shadow-sm px-4 md:px-8">
         <div class="flex-1 flex items-center gap-2">
-            <img src="./assets/github-logo.png" class="w-6">
+            <img src="./assets/github-logo.png" class="w-6" alt="GitHub Logo">
             <a class="font-semibold text-lg">GitHub Issues Tracker</a>
         </div>
+
+        <!-- Search input + button -->
         <div class="flex flex-col md:flex-row gap-3">
-            <input type="text" placeholder="Search issues..." class="input input-bordered w-full md:w-64" />
-            <button class="btn bg-[#4a00ff] text-white border-none">Search</button>
+            <input id="search-input" type="text" placeholder="Search issues..."
+                class="input input-bordered w-full md:w-64" />
+            <button id="search-btn" class="btn bg-[#4a00ff] text-white border-none">Search</button>
         </div>
     </div>
 
-    <!-- Main Container -->
+    <!-- Main container -->
     <div class="w-11/12 md:w-10/12 lg:w-8/12 mx-auto mt-8">
-        <!-- Tabs -->
+
+        <!-- Tabs for filtering issues -->
         <div class="bg-white p-4 rounded-lg shadow-sm mb-6">
             <div class="tabs w-fit gap-2">
                 <button class="tab tab-active bg-[#4a00ff] text-white border border-gray-200 rounded-lg">All</button>
@@ -48,11 +52,12 @@
             </div>
         </div>
 
-        <!-- Count div -->
-        <div class="bg-white p-6 rounded-lg shadow-sm mb-6 flex flex-col md:flex-row gap-4 justify-between md:items-center">
+        <!-- Count div shows total issues -->
+        <div
+            class="bg-white p-6 rounded-lg shadow-sm mb-6 flex flex-col md:flex-row gap-4 justify-between md:items-center">
             <div class="flex items-center gap-3">
                 <div class="bg-[#ece4ff] p-2 rounded-full">
-                    <img src="./assets/Aperture.png" alt="">
+                    <img src="./assets/Aperture.png" alt="Tracker Icon">
                 </div>
                 <div class="issues-count">
                     <h2 class="font-semibold text-lg">0 Issues</h2>
@@ -60,53 +65,72 @@
                 </div>
             </div>
 
+            <!-- Open Closed status -->
             <div class="flex gap-4 text-sm issues-status">
-                <p class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                    Open
-                </p>
-                <p class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-purple-500 rounded-full"></span>
-                    Closed
-                </p>
+                <p class="flex items-center gap-2"><span class="w-2 h-2 bg-green-500 rounded-full"></span>Open</p>
+                <p class="flex items-center gap-2"><span class="w-2 h-2 bg-purple-500 rounded-full"></span>Closed</p>
             </div>
         </div>
 
-        <!-- Loading Spinner -->
+        <!-- Loading spinner -->
         <div id="loading-spinner" class="flex justify-center items-center py-10 hidden">
             <span class="loading loading-dots loading-xl text-[#4a00ff]"></span>
         </div>
 
-        <!-- Issues Grid -->
+        <!-- Issues grid all cards will be appended here -->
         <div id="issues-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 min-h-[200px]">
-            <!-- Issues dynamically added here -->
-        </div>
 
+        </div>
     </div>
 
-    <!-- Issue Details Modal -->
+    <!-- Issue details modal -->
     <dialog id="issue-modal" class="modal">
-        <div class="modal-box max-w-lg">
-            <h3 id="modal-title" class="font-bold text-lg"></h3>
-            <p id="modal-description" class="py-3 text-sm text-gray-600"></p>
+        <div class="modal-box max-w-2xl p-6 bg-white rounded-xl shadow-lg border border-gray-100">
 
-            <div class="flex flex-wrap gap-2 mt-2" id="modal-labels">
-                <!-- labels dynamically inserted here -->
-            </div>
+            <!-- Issue title -->
+            <h3 id="modal-title" class="font-bold text-2xl text-[#1a202c]"></h3>
 
-            <div class="flex justify-between text-xs text-gray-400 mt-3">
-                <span id="modal-author"></span>
+            <!-- Status, author, date -->
+            <div class="flex flex-wrap items-center gap-2 mt-3 text-sm text-gray-600">
+                <span id="modal-status-badge"
+                    class="badge badge-lg text-white py-1 px-3.5 rounded-full font-medium"></span>
+                <span class="text-gray-400">•</span>
+                <span>Opened by <strong id="modal-author-name"></strong></span>
+                <span class="text-gray-400">•</span>
                 <span id="modal-date"></span>
             </div>
 
-            <div class="modal-action">
+            <!-- Labels -->
+            <div id="modal-labels" class="flex flex-wrap gap-2 mt-5">
+
+            </div>
+
+            <!-- Description -->
+            <p id="modal-description" class="py-5 text-base text-gray-600 leading-relaxed"></p>
+
+            <!-- Assignee & Priority -->
+            <div class="grid grid-cols-2 gap-4 bg-[#f8fafc] p-5 rounded-lg border border-gray-100 mt-2">
+                <div>
+                    <p class="text-xs text-gray-400 font-bold uppercase mb-1">Assignee:</p>
+                    <p id="modal-assignee-name" class="font-semibold text-base text-[#1a202c]">(No Assignee)</p>
+                </div>
+                <div class="flex flex-col items-start justify-center">
+                    <p class="text-xs text-gray-400 font-bold uppercase mb-1">Priority:</p>
+                    <span id="modal-priority-badge"
+                        class="badge badge-md py-1 px-3 rounded-md font-semibold text-xs mt-1"></span>
+                </div>
+            </div>
+
+            <!-- Close button -->
+            <div class="modal-action mt-6 justify-end">
                 <form method="dialog">
-                    <button class="btn">Close</button>
+                    <button class="btn btn-sm bg-[#4a00ff] text-white px-8 h-10 rounded-lg border-none font-semibold text-sm">Close</button>
                 </form>
             </div>
         </div>
     </dialog>
 
+    <!-- JS file -->
     <script src="./script/main.js"></script>
 </body>
 
