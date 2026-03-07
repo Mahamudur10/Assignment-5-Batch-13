@@ -14,14 +14,34 @@ const displayIssues = (issues) => {
 
     issues.forEach(issue => {
         const div = document.createElement("div")
-        div.classList = "card bg-white shadow-sm border-t-4 border-green-500"
-        div.innerHTML = `
-            <div class="card bg-white shadow-sm border-green-500">
+        div.classList = `card bg-white shadow-sm border-t-4 ${issue.status === "open" ? "border-green-500" : "border-purple-500"}`
+        const statusIcon = issue.status === "open" ? "./assets/Open-Status.png" : "./assets/Closed- Status .png"
 
+        let priorityBg, priorityText;
+        switch(issue.priority.toLowerCase()) {
+            case "high":
+                priorityBg = "bg-[#feecec]";
+                priorityText = "text-[#ef4444]";
+                break;
+            case "medium":
+                priorityBg = "bg-[#fff6d1]";
+                priorityText = "text-[#f59e0b]";
+                break;
+            case "low":
+                priorityBg = "bg-[#eeeff2]";
+                priorityText = "text-[#9ca3af]";
+                break;
+            default:
+                priorityBg = "bg-gray-100";
+                priorityText = "text-gray-600";
+        }
+
+        div.innerHTML = `
+            
                 <div class="card-body p-4">
                     <div class="flex gap-1 justify-between items-center">
-                        <img src="./assets/Open-Status.png" alt="">
-                        <span class="px-6 py-1 bg-[#feecec] text-[#ef4444] rounded-full text-center">${issue.priority}</span>
+                        <img src="${statusIcon}" alt="">
+                        <span class="px-4 py-1 rounded-full text-center font-semibold ${priorityBg} ${priorityText}">${issue.priority}</span>
                     </div>
                     <h3 class="font-semibold text-sm">${issue.title}</h3>
 
@@ -39,8 +59,6 @@ const displayIssues = (issues) => {
                         <p class="text-xs text-gray-400">${issue.createdAt}</p>
                     </div>
                 </div>
-
-            </div>
 
 `
         container.appendChild(div)
